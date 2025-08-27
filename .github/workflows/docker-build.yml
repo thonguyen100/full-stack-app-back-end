@@ -39,7 +39,7 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           COMMIT_SHA=${{ github.sha }}
-          gcloud run deploy stg-backend-service \
+          gcloud run deploy stg-backend-v0.2 \
             --image asia-east1-docker.pkg.dev/peak-nimbus-466309-n1/stg-full-stack-app-backend/stg-backend-image:staging-backend-v0.2 \
             --region asia-east1 \
             --platform managed \
