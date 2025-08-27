@@ -27,7 +27,7 @@ jobs:
 
       - name: Configure Docker to use gcloud auth
         run: |
-          gcloud auth configure-docker us-central1-docker.pkg.dev
+          gcloud auth configure-docker asia-east1-docker.pkg.dev
 
       - name: Build and push Docker image to Artifact Registry
         run: |
