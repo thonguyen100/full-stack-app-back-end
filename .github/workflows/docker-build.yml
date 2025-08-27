@@ -16,15 +16,15 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Authenticate to GCP
-        uses: google-github-actions/setup-gcloud@v1
+      - name: Authenticate to GCP using Workload Identity Federation
+        uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: projects/1058846922605/locations/global/workloadIdentityPools/stg-backend-github-ci-pool/providers/stg-backend-repo
           service_account: stg-backend-github-ci@peak-nimbus-466309-n1.iam.gserviceaccount.com
         
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
-        
+
       - name: Configure Docker to use gcloud auth
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
