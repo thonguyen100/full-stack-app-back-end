@@ -1,0 +1,33 @@
+name: Build & Push Backend to GCP Artifact Registry
+
+on:
+  push:
+    branches: [ main, staging ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          workload_identity_provider: projects/1058846922605/locations/global/workloadIdentityPools/stg-backend-github-ci-pool/providers/stg-backend-repo
+          service_account: stg-backend-github-ci@peak-nimbus-466309-n1.iam.gserviceaccount.com
+
+      - name: Configure Docker to use gcloud auth
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build and push Docker image to Artifact Registry
+        run: |
+          IMAGE_NAME=us-central1-docker.pkg.dev/peak-nimbus-466309-n1/my-app-repo/my-app
+          docker build -t $IMAGE_NAME:staging .
+          docker push $IMAGE_NAME:staging
