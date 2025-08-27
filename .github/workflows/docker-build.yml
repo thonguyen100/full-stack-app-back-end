@@ -31,6 +31,6 @@ jobs:
 
       - name: Build and push Docker image to Artifact Registry
         run: |
-          IMAGE_NAME=us-central1-docker.pkg.dev/peak-nimbus-466309-n1/my-app-repo/my-app
-          docker build -t $IMAGE_NAME:staging .
-          docker push $IMAGE_NAME:staging
+          IMAGE_NAME=asia-east1-docker.pkg.dev/peak-nimbus-466309-n1/stg-full-stack-app-backend/stg-backend-image
+          docker build -t $IMAGE_NAME:staging-backend .
+          docker push $IMAGE_NAME:staging-backend
