@@ -23,10 +23,10 @@ const port = process.env.PORT || 5000;
 
 // Database connection - FIXED VERSION
 const db = mysql.createPool({
-  host: process.env.DB_HOST,
+  host: process.env.DB_HOST  || '127.0.0.1',
+  database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
