@@ -65,7 +65,7 @@ app.post("/api/add_user", async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const sql = "INSERT INTO student_details (`name`,`email`,`age`,`gender`) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO students (`name`,`email`,`age`,`gender`) VALUES (?, ?, ?, ?)";
     const values = [name, email, age, gender];
     
     const [result] = await db.execute(sql, values);
@@ -82,7 +82,7 @@ app.post("/api/add_user", async (req, res) => {
 // Get all students
 app.get("/api/students", async (req, res) => {
   try {
-    const sql = "SELECT * FROM student_details";
+    const sql = "SELECT * FROM students";
     const [result] = await db.execute(sql);
     return res.json(result);
   } catch (err) {
@@ -101,7 +101,7 @@ app.get("/api/read/:id", async (req, res) => {
       return res.status(400).json({ message: "Invalid student ID" });
     }
 
-    const sql = "SELECT * FROM student_details WHERE `id` = ?";
+    const sql = "SELECT * FROM students WHERE `id` = ?";
     const [result] = await db.execute(sql, [id]);
     
     if (result.length === 0) {
@@ -131,7 +131,7 @@ app.put("/api/edit/:id", async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const sql = "UPDATE student_details SET `name`=?, `email`=?, `age`=?, `gender`=? WHERE id=?";
+    const sql = "UPDATE students SET `name`=?, `email`=?, `age`=?, `gender`=? WHERE id=?";
     const values = [name, email, age, gender, id];
     
     const [result] = await db.execute(sql, values);
@@ -157,7 +157,7 @@ app.delete("/api/delete/:id", async (req, res) => {
       return res.status(400).json({ message: "Invalid student ID" });
     }
 
-    const sql = "DELETE FROM student_details WHERE id=?";
+    const sql = "DELETE FROM students WHERE id=?";
     const [result] = await db.execute(sql, [id]);
     
     if (result.affectedRows === 0) {
