@@ -76,12 +76,13 @@ jobs:
       - name: Install MySQL client and Cloud SQL Auth Proxy
         run: |
           sudo apt-get update && sudo apt-get install -y mysql-client
-          curl -o cloud-sql-proxy https://dl.google.com/cloudsql/cloud-sql-proxy.linux.amd64
+          wget https://github.com/GoogleCloudPlatform/cloud-sql-proxy/releases/latest/download/cloud-sql-proxy.linux.amd64 -O cloud-sql-proxy
+
           chmod +x cloud-sql-proxy
 
       - name: Start Cloud SQL Auth Proxy
         run: |
-          ./cloud-sql-proxy "peak-nimbus-466309-n1:asia-east1:stg-app-db-instance" --port 3306 > proxy.log 2>&1 & sleep 5
+          ./cloud-sql-proxy "$CONNECTION_NAME" --port 3306 > proxy.log 2>&1 & sleep 5
 
       - name: Check if MySQL is listening
         run: |
