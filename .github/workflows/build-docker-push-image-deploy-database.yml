@@ -81,12 +81,12 @@ jobs:
 
       - name: Start Cloud SQL Auth Proxy
         run: |
-          ./cloud-sql-proxy "$CONNECTION_NAME" \ --address 35.229.146.46 \ --port 3306 &
+          ./cloud-sql-proxy "$CONNECTION_NAME" --port 3306 &
           sleep 5
 
       - name: Apply schema to Cloud SQL (MySQL)
         run: |
-          mysql -u"$DB_USER" -p"$DB_PASSWORD" -h 35.229.146.46 -P 3306 "$DB_NAME" < schema.sql
+          mysql -u"$DB_USER" -p"$DB_PASSWORD" -h 127.0.0.1 -P 3306 "$DB_NAME" < schema.sql
 
 
 
