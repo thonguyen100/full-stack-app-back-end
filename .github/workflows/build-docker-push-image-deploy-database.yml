@@ -81,7 +81,7 @@ jobs:
 
       - name: Start Cloud SQL Auth Proxy
         run: |
-          ./cloud-sql-proxy "$CONNECTION_NAME" --port 3306 & sleep 5
+          ./cloud-sql-proxy "peak-nimbus-466309-n1:asia-east1:stg-app-db-instance" --port 3306 > proxy.log 2>&1 & sleep 5
 
       - name: Check if MySQL is listening
         run: |
