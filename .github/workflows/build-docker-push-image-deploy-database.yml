@@ -76,7 +76,7 @@ jobs:
       - name: Install MySQL client and Cloud SQL Auth Proxy
         run: |
           sudo apt-get update && sudo apt-get install -y mysql-client
-          wget https://github.com/GoogleCloudPlatform/cloud-sql-proxy/releases/download/v2.8.2/cloud-sql-proxy.linux.amd64 -O cloud-sql-proxy
+          wget https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.8.0/cloud-sql-proxy.linux.amd64 -O cloud-sql-proxy
 
           chmod +x cloud-sql-proxy
 
