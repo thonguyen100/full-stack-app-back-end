@@ -81,9 +81,16 @@ jobs:
 
       - name: Start Cloud SQL Auth Proxy
         run: |
-          ./cloud-sql-proxy "$CONNECTION_NAME" --port 3306 &
-          sleep 5
+          ./cloud-sql-proxy "$CONNECTION_NAME" --port 3306 & sleep 5
 
+      - name: Check if MySQL is listening
+        run: |
+          sudo apt install -y netcat
+          nc -zv 127.0.0.1 3306 || echo "Port 3306 is not open"
+
+      - name: Print Proxy Logs
+        run: cat proxy.log
+    
       - name: Apply schema to Cloud SQL (MySQL)
         run: |
           mysql -u"$DB_USER" -p"$DB_PASSWORD" -h 127.0.0.1 -P 3306 "$DB_NAME" < schema.sql
