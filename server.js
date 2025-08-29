@@ -20,6 +20,15 @@ app.use(cors());
 app.use(express.json());
 
 const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
+
+app._router.stack.forEach((middleware) => {
+  if (middleware.route) {
+    console.log(`Registered route: ${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
+  }
+});
 
 // Database connection - FIXED VERSION
 const db = mysql.createPool({
@@ -169,14 +178,12 @@ app.use((err, req, res, next) => {
 
 // Add a /health endpoint
 app.get('/health', (req, res) => {
+  console.log('Health check hit!');
   res.status(200).json({ status: 'OK' });
 });
+
 
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route not found' });
-});
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
 });
