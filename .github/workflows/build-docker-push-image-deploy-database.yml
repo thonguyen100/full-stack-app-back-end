@@ -95,7 +95,17 @@ jobs:
     
       - name: Apply schema to Cloud SQL (MySQL)
         run: |
-          mysql -u"$DB_USER" -p"$DB_PASSWORD" -h 127.0.0.1 -P 3306 "$DB_NAME" < schema.sql
+          mysql -u"$DB_USER" -p"$DB_PASSWORD" -h 127.0.0.1 -P 3306 "$DB_NAME" < schema.sql 2> error.log || {
+          if grep -q "ERROR 1050" error.log; then
+            echo "Database $DB_NAME already exists. Continuing..."
+            cat error.log
+            exit 0
+          else
+            echo "An error occurred while applying the schema:"
+            cat error.log
+            exit 1
+          fi
+          }
 
 
 
