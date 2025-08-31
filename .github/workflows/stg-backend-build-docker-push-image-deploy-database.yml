@@ -1,8 +1,8 @@
-name: build-docker-push-image-deploy-database
+name: stg-backend-build-docker-push-image-deploy-database
 
 on:
   push:
-    branches: [ main, staging ]
+    branches: [ main, stg ]
 
 jobs:
   build-docker-push-image-deploy-database:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Get Github Actions variables from Secret Manager
         run: |
-          IMAGE_NAME=$(gcloud secrets versions access latest --secret="stg-artifact-registry-image-path-backend")
+          IMAGE_NAME=$(gcloud secrets versions access latest --secret="stg-artifact-registry-backend-image-path")
           IMAGE_TAG=${GITHUB_SHA::5}
 
           CLOUD_RUN_BACKEND_SERVICE_NAME=$(gcloud secrets versions access latest --secret="stg-cloud-run-backend-service-name")
