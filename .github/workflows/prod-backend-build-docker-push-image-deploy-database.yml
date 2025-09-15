@@ -2,7 +2,7 @@ name: prod-backend-build-docker-push-image-deploy-database
 
 on:
   push:
-    branches: [ main, prod ]
+    branches: [ prod ]
 
 jobs:
   build-docker-push-image-deploy-database:
