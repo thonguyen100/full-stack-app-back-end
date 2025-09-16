@@ -36,7 +36,7 @@ const db = mysql.createPool({
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+  // socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
