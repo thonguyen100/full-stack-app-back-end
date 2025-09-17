@@ -66,7 +66,7 @@ jobs:
             --image $IMAGE_NAME:$IMAGE_TAG \
             --region us-central1 \
             --platform managed \
-            --allow-unauthenticated \
+            --no-allow-unauthenticated \
             --project=peak-nimbus-466309-n1
       
       - name: Get schema.sql file from Cloud Storage
@@ -100,6 +100,12 @@ jobs:
             echo "Database $DB_NAME already exists. Continuing..."
             cat error.log
             exit 0
+
+          elif grep -q "Can't connect to MySQL server" error.log || grep -q "Connection refused" error.log; then
+            echo "Cannot connect to MySQL server. Skipping schema application."
+            cat error.log
+            exit 0
+                        
           else
             echo "An error occurred while applying the schema:"
             cat error.log

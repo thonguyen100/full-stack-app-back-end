@@ -94,10 +94,10 @@ app.get("/api/students", async (req, res) => {
 // Get specific student by ID
 app.get("/api/read/:id", async (req, res) => {
   try {
-    const id = req.params.id;
+    // const id = req.params.id;
+    // id = parseInt(id);
+    const id = parseInt(req.params.id);
 
-    // Convert the id to an integer
-    id = parseInt(id);
     
     // Validate ID is a number
     if (isNaN(id)) {
